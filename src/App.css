@@ -7,3 +7,15 @@
 /*.auth-container .logo {
     width: 200px;
 }*/
+.sidebar-container .ps-sidebar-container {
+    background-color: #1F263E;
+    height: 100vh;
+    color: #fff;
+}
+.sidebar-container img {
+    margin-left: 165px;
+    margin-top: 10px;
+}
+.notFound-container {
+    background-image: url(./assets/images/not-found-bg.png);
+}
