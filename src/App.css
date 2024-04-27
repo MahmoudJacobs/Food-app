@@ -4,18 +4,64 @@
 .bg-overlay {
     background: linear-gradient(rgba(47, 140, 96, 0.4), rgba(0,0,0,0.7))
 }
+
+.notFound-container {
+    height: 100vh;
+    background-image: url(./assets/images/not-found.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.nf-logo {
+    width: 20%;
+    margin-bottom: 145px;
+}
+
+.nf-text {
+    margin-left: 55px;
+}
+
+.nf-btn {
+    margin-top: 30px;
+    margin-left: 55px;
+    height: 60px;
+    font-weight: bolder;
+    font-size: 20px;
+    color: white;
+}
+
+.nf-btn span {
+    margin-right: 25px;
+    margin-top: 3px;
+}
 /*.auth-container .logo {
     width: 200px;
 }*/
 .sidebar-container .ps-sidebar-container {
     background-color: #1F263E;
+    padding-top: 20px;
     height: 100vh;
     color: #fff;
 }
 .sidebar-container img {
     margin-left: 165px;
-    margin-top: 10px;
+    margin-top: -10px;
 }
-.notFound-container {
-    background-image: url(./assets/images/not-found-bg.png);
+.navbarSearch {
+    width: 50%;
+}
+.header-container {
+    background-image: url(./assets/images/header-bg.svg);
+    background-size: cover;
+    color: white;
+}
+.nav-link img {
+    margin-right: 40px;
+}
+.arrow {
+    margin-right: 70px;
+    margin-left: 40px;
+}
+.bell {
+    margin-right: 50px;
 }

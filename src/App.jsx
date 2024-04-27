@@ -1,5 +1,7 @@
 import "./App.css";
 import React from 'react';
+import { jwtDecode } from "jwt-decode";
+import { useEffect } from "react";
 import { useState } from 'react';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from './modules/SharedModule/components/AuthLayout/AuthLayout';
@@ -16,8 +18,6 @@ import ResetPass from './modules/AuthenticationModule/components/ResetPass/Reset
 import ChangePass from "./modules/AuthenticationModule/components/changepass/ChangePass";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { jwtDecode } from "jwt-decode";
-import { useEffect } from "react";
 import ProtectedRoute from "./modules/SharedModule/components/ProtectedRoute/ProtectedRoute";
 
 function App() {
@@ -34,7 +34,6 @@ function App() {
     }
   }, []);
 
- 
  
  let routes = createBrowserRouter([
   {
