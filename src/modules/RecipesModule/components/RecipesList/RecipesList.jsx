@@ -55,6 +55,21 @@ export default function RecipesList() {
     }
   }
 
+  //update submit
+  const onUpdateSubmit= async(data)=> {
+    try{
+      let response = await axios.put(`https://upskilling-egypt.com:3006/api/v1/Recipes/${catId}`,
+      data,
+      {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`}}
+      );
+      handleUpdateClose();
+      getCategoriesList();
+      console.log(response);
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
 
   useEffect(()=> {
     getRecipesList();
