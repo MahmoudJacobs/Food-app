@@ -23,9 +23,9 @@ export default function SideBar() {
         <MenuItem onClick={toggleCollapse} icon={<img src={toggler} alt='logo' />} component={<Link to="/dashboard" />}></MenuItem>
             <MenuItem icon={<i className="fa fa-home" aria-hidden="true"></i>} component={<Link to="/dashboard" />}> Home </MenuItem>
             <MenuItem icon={<i className="fa fa-user" aria-hidden="true"></i>} component={<Link to="/dashboard/users" />}> Users </MenuItem>
-            <MenuItem icon={<i className="fa fa-home" aria-hidden="true"></i>} component={<Link to="/dashboard/recipes" />}> Recipes </MenuItem>
+            <MenuItem icon={<i className="fa fa-cutlery" aria-hidden="true"></i>} component={<Link to="/dashboard/recipes" />}> Recipes </MenuItem>
             <MenuItem icon={<i className="fa fa-calendar" aria-hidden="true"></i>} component={<Link to="/dashboard/categories" />}> Categories </MenuItem>
-            <MenuItem icon={<i className="fa fa-lock" aria-hidden="true"></i>} component={<Link to="/dashboard/users" />}> Change Password </MenuItem>
+            <MenuItem icon={<i className="fa fa-lock" aria-hidden="true"></i>} component={<Link to="/dashboard" />}> Change Password </MenuItem>
             <MenuItem icon={<i className="fa fa-sign-out" aria-hidden="true"></i>} onClick={logout}> Logout </MenuItem>
         </Menu>
       </Sidebar>

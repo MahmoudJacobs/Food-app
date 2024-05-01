@@ -55,6 +55,12 @@
     background-size: cover;
     color: white;
 }
+.fillandshow-container {
+    background-color: #F0FFEF;
+}
+.fillicon {
+    margin-left: 10px;
+}
 .nav-link img {
     margin-right: 40px;
 }
@@ -64,4 +70,10 @@
 }
 .bell {
     margin-right: 50px;
+}
+.usersText{
+    margin-left: 35px;
+}
+.norecipeimg {
+    width: 10%;
 }
