@@ -7,14 +7,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 
 
-export default function Login({saveLoginData}) {
+export default function VerifyAccount() {
 
     const navigate = useNavigate();
-
-    const [showPassword, setShowPassword] = useState(false);
-    const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-    };
 
   let {
     register,
@@ -24,11 +19,9 @@ export default function Login({saveLoginData}) {
 
   const onSubmit =async(data)=> {
     try{
-      let response = await axios.post('https://upskilling-egypt.com:3006/api/v1/Users/Login',data);
-      toast.success('Login Successful !');
-      localStorage.setItem('token',response.data.token);
-      saveLoginData();
-      navigate('/dashboard');
+      let response = await axios.put('https://upskilling-egypt.com:3006/api/v1/Users/verify',data);
+      toast.success(response.data.message);
+      navigate('/login');
     }
     catch(error){
       toast.error(error.response.data.message);
@@ -45,7 +38,7 @@ export default function Login({saveLoginData}) {
               <img src={logo} alt='' className='logo w-50'/>
             </div>
             <div className='form-content'>
-              <h3>Log in</h3>
+              <h3>Verify Account</h3>
               <p className='text-muted'>
                 Welcome Back! Please enter your details
               </p>
@@ -60,10 +53,6 @@ export default function Login({saveLoginData}) {
                     placeholder="Enter your E-mail"
                     {...register("email" , {
                       required: "Email is required",
-                      pattern: {
-                        value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i ,
-                        message: 'Invalid Mail'
-                      }
                     })}
                   />
                 </div>
@@ -73,27 +62,15 @@ export default function Login({saveLoginData}) {
                     <i className='fa fa-key'></i>
                   </span>
                   <input
-                    type={showPassword ? "text" : "password"}
                     className="form-control"
-                    placeholder="Enter your password"
-                    {...register("password", {
-                      required:'Password is required'
+                    placeholder="Enter your code"
+                    {...register("code", {
+                      required:'code is required'
                     })}
                   />
-                  <span className="input-group-text" id="basic-addon2">
-                    <i
-                      className={showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'} 
-                      onClick={togglePasswordVisibility}
-                      style={{ cursor: 'pointer' }}
-                    ></i>
-                  </span>
                 </div>
-                {errors.password && <p className='alert alert-danger'>{errors.password.message}</p>}
-                <div className="links d-flex justify-content-between my-3">
-                  <Link to="/register" className='text-decoration-none text-secondary'>Register Now?</Link>
-                  <Link to="/forgetpass" className='text-decoration-none text-success'>Forgot Password?</Link>
-                </div>
-                <button className='btn btn-success w-100'>Login</button>
+                {errors.code && <p className='alert alert-danger'>{errors.code.message}</p>}
+                <button className='btn btn-success w-100'>Verify</button>
               </form>
             </div>
           </div>

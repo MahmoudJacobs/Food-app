@@ -37,10 +37,18 @@ export default function CategoriesList() {
     setShowDelete(true);
   }
 
-  const getCategoriesList = async()=> {
+  const getNameValue = (input) => {
+    getCategoriesList(input.target.value);
+  }
+
+  const getCategoriesList = async(name)=> {
     try{
       let response = await axios.get('https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=10&pageNumber=1',
-      {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`}}
+      {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`},
+       params : {
+          'name': name
+        },
+       }
       );
       setCategoriesList(response.data.data);
     }
@@ -164,7 +172,7 @@ export default function CategoriesList() {
                     })}
                   />
                 </div>
-                <button className='btn btn-primary w-100' onClick={onUpdateSubmit}>
+                <button className='btn btn-success w-100' onClick={onUpdateSubmit}>
                     Update
                 </button>
               </form>
@@ -181,7 +189,19 @@ export default function CategoriesList() {
             <button onClick={handleShow} className='btn btn-success'>Add new Category</button>
           </div>
         </div>
-        <br/>
+        
+        <div className="filteration my-3">
+          <div className="row">
+            <div className="col-md-6">
+              <input
+                placeholder='search by category name...'
+                type="text" 
+                className='form-control'
+                onChange={getNameValue} />
+            </div>
+          </div>
+        </div>
+
         <table className="table table-striped table-hover table-borderless">
           <thead>
             <tr className='table-secondary'>
@@ -196,7 +216,11 @@ export default function CategoriesList() {
             <tr key={category.id}>
               <th scope="row">{index+1}</th>
               <td>{category.name}</td>
-              <td>{category.creationDate}</td>
+              <td>
+                {new Date(category.creationDate).toLocaleDateString(
+                  'en-US'
+                )}
+              </td>
               <td>
                 <i onClick={()=>handleUpdateShow(category.id)} className='fa-solid fa-edit text-warning me-3' aria-hidden="true"></i>
                 <i onClick={()=>handleDeleteShow(category.id)} className='fa-solid fa-trash text-danger' aria-hidden="true"></i>

@@ -1,5 +1,7 @@
 .auth-container{
     background-image: url(./assets/images/auth-bg.png);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .bg-overlay {
     background: linear-gradient(rgba(47, 140, 96, 0.4), rgba(0,0,0,0.7))
@@ -37,6 +39,7 @@
 /*.auth-container .logo {
     width: 200px;
 }*/
+
 .sidebar-container .ps-sidebar-container {
     background-color: #1F263E;
     padding-top: 20px;
@@ -75,5 +78,11 @@
     margin-left: 35px;
 }
 .norecipeimg {
-    width: 10%;
+    width: 30%;
+}
+.imagetd {
+    width: 17%;
+}
+.Recipeimg {
+    width: 60%;
 }

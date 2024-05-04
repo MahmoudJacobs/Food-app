@@ -19,6 +19,9 @@ import ChangePass from "./modules/AuthenticationModule/components/changepass/Cha
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProtectedRoute from "./modules/SharedModule/components/ProtectedRoute/ProtectedRoute";
+import RecipeData from "./modules/RecipesModule/components/RecipeData/RecipeData";
+import VerifyAccount from "./modules/AuthenticationModule/components/verifyAccount/VerifyAccount"
+import RecipeEdit from "./modules/RecipesModule/components/RecipeEdit/RecipeEdit";
 
 function App() {
  let [loginData,setLoginData] = useState(null);
@@ -46,6 +49,8 @@ function App() {
       {index: true, element: <Dashboard /> },
       {path: "home", element: <Dashboard />},
       {path: "recipes", element: <RecipesList />},
+      {path: "recipeData", element: <RecipeData />},
+      {path: "recipeEdit", element: <RecipeEdit />},
       {path: "categories", element: <CategoriesList />},
       {path: "users", element: <UsersList />},
     ],
@@ -59,6 +64,7 @@ function App() {
       {path: "login", element: <Login saveLoginData={saveLoginData}/>},
       {path: "register", element: <Register />},
       {path: "forgetpass", element: <ForgetPass />},
+      {path: "VerifyAccount", element: <VerifyAccount />},
       {path: "changepass", element: <ChangePass />},
       {path: "resetpass", element: <ResetPass />},
     ],
