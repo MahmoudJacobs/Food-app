@@ -24,6 +24,8 @@ export default function RecipesList() {
   const [tagValue, setTagValue] = useState('');
   const [show, setShow] = useState(false);
   const [recipeId, setRecipeId] = useState('');
+  const [ArrayOfPages, setArrayOfPages] = useState([]);
+
 
   const getCategoriesList = async()=> {
     try{
@@ -85,9 +87,9 @@ export default function RecipesList() {
   }
 
 
-  const getRecipesList = async(name,tagId,catId)=> {
+  const getRecipesList = async(name, tagId, catId, pageSize, pageNumber)=> {
     try{
-      let response = await axios.get('https://upskilling-egypt.com:3006/api/v1/Recipe/?pageSize=10&pageNumber=1',
+      let response = await axios.get(`https://upskilling-egypt.com:3006/api/v1/Recipe/?pageSize=${pageSize}&pageNumber=${pageNumber}`,
       {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`},
       params : {
             'name' : name,
@@ -96,6 +98,10 @@ export default function RecipesList() {
           },
         }
       );
+      
+      setArrayOfPages(Array(response.data.totalNumberOfPages).fill().map((_,i) => i+1))
+      console.log(ArrayOfPages);
+      console.log(response.data.totalNumberOfPages);
       setRecipesList(response.data.data);
     }
     catch(error){
@@ -162,7 +168,7 @@ export default function RecipesList() {
   }
 
   useEffect(()=> {
-    getRecipesList();
+    getRecipesList("","","", 5, 1);
     getCategoriesList();
     getTagsList();
   }, []);
@@ -360,7 +366,31 @@ export default function RecipesList() {
               )}
           </tbody>
         </table>
+        <nav className='d-flex justify-content-center' aria-label="Page navigation">
+        <ul className="pagination">
+          <li className="page-item">
+            <a className="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+
+          {ArrayOfPages.map((pageNo)=> (
+            <li className="page-item" onClick={()=>getRecipesList(nameValue,tagValue,catValue,5,pageNo)}>
+              <a className="page-link" href="#">{pageNo}</a>
+            </li>
+          ))}
+
+          
+          
+          <li className="page-item">
+            <a className="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
       </div>
+      
     </>
   )
 }
