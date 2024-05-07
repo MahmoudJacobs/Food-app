@@ -20,12 +20,17 @@ export default function RecipesList() {
   const [categoriesList, setCategoriesList] = useState([]);
   const [tagsList, setTagsList] = useState([]);
   const [nameValue, setNameValue] = useState('');
+  const [userData, setUserData] = useState(null);
   const [catValue, setCatValue] = useState('');
   const [tagValue, setTagValue] = useState('');
   const [show, setShow] = useState(false);
   const [recipeId, setRecipeId] = useState('');
+  const [SelectedRecipeImage, setSelectedRecipeImage] = useState('');
+  const [SelectedRecipeDesc, setSelectedRecipeDesc] = useState('');
   const [ArrayOfPages, setArrayOfPages] = useState([]);
-
+  const [SelectedRecipe, setSelectedRecipe] = useState(null);
+  const baseURL = 'https://upskilling-egypt.com:3006/api/v1'
+  const staticUrl = 'https://upskilling-egypt.com:3006/'
 
   const getCategoriesList = async()=> {
     try{
@@ -55,6 +60,42 @@ export default function RecipesList() {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+
+  const [showView, setShowView] = useState(false);
+  const handleViewClose = () => setShowView(false);
+  
+  const handleViewShow = (item) => {
+    setSelectedRecipe(item);
+    setSelectedRecipeImage(staticUrl + item.imagePath);
+    setSelectedRecipeDesc(item.description);
+    setRecipeId(item.id);
+    setShowView(true);
+  }
+  const [loading, setLoading] = useState(false);
+
+  const onViewSubmit = async () => {
+    try {
+      setLoading(true);
+      await axios.post(
+        'https://upskilling-egypt.com:3006/api/v1/userRecipe/',
+        { recipeId: recipeId },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      toast.success('Added to Favourites')
+      console.log('Recipe favorited successfully!');
+    } catch (error) {
+      console.error('Error favoriting recipe:', error);
+    } finally {
+      setLoading(false);
+      handleViewClose();
+    }
+  };
+
 
   const [showDelete,setShowDelete] = useState(false);
   const handleDeleteClose = () => setShowDelete(false);
@@ -88,6 +129,7 @@ export default function RecipesList() {
 
 
   const getRecipesList = async(name, tagId, catId, pageSize, pageNumber)=> {
+    
     try{
       let response = await axios.get(`https://upskilling-egypt.com:3006/api/v1/Recipe/?pageSize=${pageSize}&pageNumber=${pageNumber}`,
       {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`},
@@ -163,6 +205,7 @@ export default function RecipesList() {
   }
 
 
+
   const goToRecipeData = () => {
     navigate('/dashboard/recipeData')
   }
@@ -171,6 +214,7 @@ export default function RecipesList() {
     getRecipesList("","","", 5, 1);
     getCategoriesList();
     getTagsList();
+    setUserData(JSON.parse (localStorage.getItem("userData")));
   }, []);
 
   return (
@@ -283,6 +327,22 @@ export default function RecipesList() {
         </Modal.Body>
       </Modal>
 
+      <Modal show={showView} onHide={handleViewClose}>
+        <Modal.Header closeButton>
+          <h3>Recipe Details</h3>
+        </Modal.Header>
+        <Modal.Body>
+        <div className='text-center'>
+          <img className='w-50 rounded mb-md-3' src={SelectedRecipeImage} alt='Recipe Image'/>
+          <p className=''>{SelectedRecipeDesc}</p>
+        </div>
+        </Modal.Body>
+        <Modal.Footer>
+            <button onClick={onViewSubmit} className='btn btn-success w-100' disabled={loading}>
+              {loading ? 'favoriting' : 'Favorite'}
+            </button>
+        </Modal.Footer>
+      </Modal>
 
       <div className="container-fluid p-4">
         <div className="row">
@@ -291,7 +351,13 @@ export default function RecipesList() {
             <span>You can check all details</span>
           </div>
           <div className="col-md-6 d-flex justify-content-end">
-            <button onClick={goToRecipeData} className='btn btn-success'>Add new Recipe</button>
+            {userData?.userGroup=='SuperAdmin'?( 
+            <button onClick={goToRecipeData} className='btn btn-success'>
+              Add new Recipe
+            </button>
+            ) : (
+              ""
+            )}  
           </div>
         </div>
         <div className="filteration my-3">
@@ -353,10 +419,21 @@ export default function RecipesList() {
               <td>{item.description}</td>
               <td>{item.category.length > 0 ? item.category[0].name : 'No Category'}</td>
               <td>{item.tag.name}</td>
+              {userData?.userGroup=='SuperAdmin'?(
               <td>
                 <i onClick={()=>handleUpdateShow(item.id)} className="fa fa-edit text-warning mx-2" aria-hidden="true"></i>
                 <i onClick={()=>handleDeleteShow(item.id)} className="fa fa-trash text-danger" aria-hidden="true"></i>
               </td>
+              ) : (
+              ""
+              )} 
+              {userData?.userGroup=='SystemUser'?(
+              <td>
+                <i onClick={()=>handleViewShow(item)} className="fa fa-eye text-primary" aria-hidden="true"></i>
+              </td>
+              ) : (
+              ""
+              )} 
               </tr>):(
                 <tr>
                   <td colSpan="8" >

@@ -6,7 +6,7 @@ import FillandShow from '../../../SharedModule/components/FillandShow/FillandSho
 export default function Dashboard() {
   return (
     <div>
-      <Header title={'Welcome mahmoud1'} description={'This is a welcoming screen for the entry of the application , you can now see the options'} imgUrl={homeImg}/>
+      <Header title={'Welcome mahmoud'} description={'This is a welcoming screen for the entry of the application , you can now see the options'} imgUrl={homeImg}/>
       <br/>
       <FillandShow />
     </div>

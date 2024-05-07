@@ -3,6 +3,7 @@ import React from 'react';
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from './modules/SharedModule/components/AuthLayout/AuthLayout';
 import Notfound from './modules/SharedModule/components/Notfound/Notfound';
@@ -11,6 +12,7 @@ import Dashboard from './modules/HomeModule/components/Dashboard/Dashboard';
 import RecipesList from './modules/RecipesModule/components/RecipesList/RecipesList';
 import CategoriesList from './modules/CategoriesModule/components/CategoriesList/CategoriesList';
 import UsersList from './modules/UsersModule/components/UsersList/UsersList';
+import FavList from './modules/FavsModule/components/FavsList/FavList'
 import Login from './modules/AuthenticationModule/components/login/Login';
 import Register from './modules/AuthenticationModule/components/register/Register';
 import ForgetPass from './modules/AuthenticationModule/components/ForgetPass/ForgetPass';
@@ -28,9 +30,11 @@ function App() {
  let saveLoginData = () => {
    let encodedToken = localStorage.getItem('token');
    let decodedToken = jwtDecode(encodedToken);
+   localStorage.setItem("userData", JSON.stringify(decodedToken));
    console.log(decodedToken);
    setLoginData(decodedToken);
  }
+ 
  useEffect(() => {
     if(localStorage.getItem('token')) {
       saveLoginData()
@@ -51,8 +55,9 @@ function App() {
       {path: "recipes", element: <RecipesList />},
       {path: "recipeData", element: <RecipeData />},
       {path: "recipeEdit", element: <RecipeEdit />},
-      {path: "categories", element: <CategoriesList />},
-      {path: "users", element: <UsersList />},
+      {path: "categories", element: loginData && loginData.userGroup === 'SuperAdmin' ? <CategoriesList /> : <Navigate to="/login" />},
+      {path: "users", element: loginData && loginData.userGroup === 'SuperAdmin' ? <UsersList /> : <Navigate to="/login" />},
+      {path: "Favs", element: loginData && loginData.userGroup === 'SystemUser' ? <FavList /> : <Navigate to="/login" />},
     ],
   },
   {
@@ -70,9 +75,20 @@ function App() {
     ],
   }
  ])
+
+ const renderRoutes = () => {
+  if (loginData !== null) {
+      return (
+          <RouterProvider router={routes}></RouterProvider>
+      );
+  }
+  // Render loading state or anything else while loginData is being fetched
+  return null;
+  }
+
   return (
     <>
-      <RouterProvider router={routes}></RouterProvider>
+      {renderRoutes()}
       <ToastContainer />
     </>
   )

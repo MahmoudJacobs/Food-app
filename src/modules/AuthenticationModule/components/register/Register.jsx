@@ -51,7 +51,7 @@ export default function Register() {
       let response = await axios.post('https://upskilling-egypt.com:3006/api/v1/Users/Register',RegisterFormData,
       {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`}});
       toast.success(response.data.message);
-      navigate('/login');
+      navigate('/verifyAccount');
     }
     catch(error){
       toast.error(error.response.data.message);

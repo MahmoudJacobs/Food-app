@@ -11,7 +11,7 @@ import { useForm } from 'react-hook-form';
 import DeleteData from '../../../SharedModule/components/DeleteData/DeleteData';
 
 
-export default function CategoriesList() {
+export default function CategoriesList({loginData}) {
   const [categoriesList, setCategoriesList] = useState([]);
   const [show, setShow] = useState(false);
   const [catId, setCatId] = useState('');
@@ -81,6 +81,7 @@ export default function CategoriesList() {
       toast.error(error.response.data.message);
     }
   };
+
 
   //Delete Category code
   const onDeleteSubmit= async()=> {

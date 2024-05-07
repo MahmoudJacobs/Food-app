@@ -11,9 +11,8 @@ import axios from 'axios';
 import ChangePass from '../../../AuthenticationModule/components/changepass/ChangePass';
 
 
-export default function SideBar() {
+export default function SideBar({loginData}) {
   const [show, setShow] = useState(false);
-  
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -24,14 +23,9 @@ export default function SideBar() {
   const navigate = useNavigate();
   const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('userData')
     navigate("/login");
   }
-
-  
- 
-
-  
-
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -44,9 +38,35 @@ export default function SideBar() {
           <Menu>
           <MenuItem onClick={toggleCollapse} icon={<img src={toggler} alt='logo' />}></MenuItem>
               <MenuItem icon={<i className="fa fa-home" aria-hidden="true"></i>} component={<Link to="/dashboard" />}> Home </MenuItem>
-              <MenuItem icon={<i className="fa fa-user" aria-hidden="true"></i>} component={<Link to="/dashboard/users" />}> Users </MenuItem>
+              {loginData.userGroup =='SuperAdmin'?(<MenuItem
+                icon={<i className="fa fa-user" 
+                aria-hidden="true"></i>} 
+                component={<Link to="/dashboard/users" />}> Users 
+                </MenuItem>
+                ) : (
+                  ""
+                )}
+              
+
               <MenuItem icon={<i className="fa fa-cutlery" aria-hidden="true"></i>} component={<Link to="/dashboard/recipes" />}> Recipes </MenuItem>
-              <MenuItem icon={<i className="fa fa-calendar" aria-hidden="true"></i>} component={<Link to="/dashboard/categories" />}> Categories </MenuItem>
+
+              {loginData.userGroup=='SuperAdmin'?(<MenuItem
+                icon={<i className="fa fa-calendar" aria-hidden="true"></i>}
+                component={<Link to="/dashboard/categories" />}> 
+                Categories </MenuItem>
+              ) : (
+                ""
+              )}
+              
+
+              {loginData.userGroup=='SystemUser'?(<MenuItem
+                icon={<i className="fa fa-heart" aria-hidden="true"></i>}
+                component={<Link to="/dashboard/Favs" />}> 
+                Favourites </MenuItem>
+              ) : (
+                ""
+              )}
+              
               <MenuItem icon={<i className="fa fa-lock" aria-hidden="true"></i>} onClick={handleShow}> Change Password </MenuItem>
               <MenuItem icon={<i className="fa fa-sign-out" aria-hidden="true"></i>} onClick={logout}> Logout </MenuItem>
           </Menu>
