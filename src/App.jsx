@@ -76,19 +76,16 @@ function App() {
   }
  ])
 
- const renderRoutes = () => {
-  if (loginData !== null) {
-      return (
-          <RouterProvider router={routes}></RouterProvider>
-      );
-  }
-  // Render loading state or anything else while loginData is being fetched
-  return null;
-  }
 
   return (
     <>
-      {renderRoutes()}
+      <RouterProvider router={routes}>
+        {loginData !== null ? (
+          <MasterLayout loginData={loginData} />
+        ) : (
+          <Navigate to="/login" />
+        )}
+      </RouterProvider>
       <ToastContainer />
     </>
   )
