@@ -60,6 +60,7 @@ export default function UsersList() {
       console.log(response);
     }
     catch(error){
+      toast.error(error);
       console.log(error);
     }
   }
