@@ -27,17 +27,23 @@ import RecipeEdit from "./modules/RecipesModule/components/RecipeEdit/RecipeEdit
 
 function App() {
  let [loginData,setLoginData] = useState(null);
+ const [loading, setLoading] = useState(true);
+
  let saveLoginData = () => {
-   let encodedToken = localStorage.getItem('token');
+   const encodedToken = localStorage.getItem('token');
+   if (encodedToken) {
    let decodedToken = jwtDecode(encodedToken);
    localStorage.setItem("userData", JSON.stringify(decodedToken));
    console.log(decodedToken);
    setLoginData(decodedToken);
  }
- 
+ setLoading(false)
+}
  useEffect(() => {
     if(localStorage.getItem('token')) {
       saveLoginData()
+    } else {
+      setLoading(false);
     }
   }, []);
 
@@ -57,7 +63,12 @@ function App() {
       {path: "recipeEdit", element: <RecipeEdit />},
       {path: "categories", element: loginData && loginData.userGroup === 'SuperAdmin' ? <CategoriesList /> : <Navigate to="/login" />},
       {path: "users", element: loginData && loginData.userGroup === 'SuperAdmin' ? <UsersList /> : <Navigate to="/login" />},
-      {path: "Favs", element: loginData && loginData.userGroup === 'SystemUser' ? <FavList /> : <Navigate to="/login" />},
+      {path: "Favs", element: (
+        loginData && loginData.userGroup === 'SystemUser' ?
+        <FavList /> 
+        : <Navigate to="/login" />
+        )
+      },
     ],
   },
   {
@@ -79,6 +90,10 @@ function App() {
 
   return (
     <>
+      {loading ? (
+        // Render loading state while authentication is in progress
+        <p>Loading...</p>
+      ) : (
       <RouterProvider router={routes}>
         {loginData !== null ? (
           <MasterLayout loginData={loginData} />
@@ -86,6 +101,7 @@ function App() {
           <Navigate to="/login" />
         )}
       </RouterProvider>
+      )}
       <ToastContainer />
     </>
   )

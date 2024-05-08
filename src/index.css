@@ -4,3 +4,6 @@
   font-weight: 400;
 
 }
+.ps-menu-button:hover {
+  background-color: rgba(0, 146, 77, 10%) !important;
+}

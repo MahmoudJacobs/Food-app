@@ -15,10 +15,9 @@ export default function FavList() {
 
     const getFavsList = async()=> {
         try{
-          let response = await axios.get(`https://upskilling-egypt.com:3006/api/v1/userRecipe`,
+          let response = await axios.get(`https://upskilling-egypt.com:3006/api/v1/userRecipe/?pageSize=10&pageNumber=1`,
             {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`},}
           );
-          setFavsList()
           setFavsList(response.data.data);
         }
         catch(error){
@@ -47,13 +46,13 @@ export default function FavList() {
   return (
     <div>
         <Header title={'Favourite Items'} description={'You can now add your items that any user can order it from the Application and you can edit'} imgUrl={headerImg}/>
-        <div className="container-fluid">
-            <div className="row mt-md-5">
+        <div className="container mt-md-5">
+            <div className="row">
                 {favsList.length > 0 ?favsList.map((fav) => 
-                <div key={fav.id} className="col-md-4 d-flex justify-content-center">
-                    <div className='position-relative w-50 mb-md-5 rounded-3 shadow border border-2 text-start bg-light'>
-                        <img className='w-100 rounded' src={staticUrl + fav.recipe.imagePath} alt='no image'/>
-                        <div className="position-absolute w-25 text-center top-0 end-0 translate-start m-3 rounded-circle">
+                <div key={fav.id} className="col-xl-3 col-lg-4 col-md-6">
+                    <div className='position-relative w-100 mb-md-5 rounded-3 shadow border border-2 text-start bg-light'>
+                        <img className='w-100 rounded' height={300} src={staticUrl + fav.recipe.imagePath} alt='no image'/>
+                        <div className="position-absolute top-0 end-0  px-1 m-2  bg-body rounded-2">
                             <div onClick={() => removeFav(fav)}  className='bg-white rounded' data-toggle="tooltip" data-placement="top" title="Remove from Favourites">
                                 <i className="fa fa-heart text-success"></i>
                             </div>
