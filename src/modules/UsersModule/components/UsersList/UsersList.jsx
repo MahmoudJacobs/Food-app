@@ -5,6 +5,10 @@ import headerImg from "../../../../assets/images/header.png"
 import { useState } from 'react'
 import { useEffect } from 'react';
 import axios from 'axios';
+import Modal from 'react-bootstrap/Modal';
+import DeleteData from '../../../SharedModule/components/DeleteData/DeleteData';
+import Button from 'react-bootstrap/Button';
+import { toast } from 'react-toastify';
 
 
 export default function UsersList() {
@@ -14,6 +18,16 @@ export default function UsersList() {
   const [CountryValue, setCountryValue] = useState('');
   const [GroupValue, setGroupValue] = useState('');
   const [ArrayOfPages, setArrayOfPages] = useState([]);
+  const [showDelete,setShowDelete] = useState(false);
+  const [UserId, setUserId] = useState('');
+
+
+  const handleDeleteClose = () => setShowDelete(false);
+  const handleDeleteShow = (item) => {
+    setUserId(item)
+    setShowDelete(true);
+  }
+
 
   const getUsersList = async(userName, email, country, groups, pageSize, pageNumber)=> {
     try{
@@ -29,6 +43,21 @@ export default function UsersList() {
       );
       setArrayOfPages(Array(response.data.totalNumberOfPages).fill().map((_,i) => i+1))
       setUsersList(response.data.data);
+    }
+    catch(error){
+      console.log(error);
+    }
+  }
+
+  const onDeleteSubmit= async()=> {
+    try{
+      let response = await axios.delete(`https://upskilling-egypt.com:3006/api/v1/Users/${UserId}`,
+      {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`}}
+      );
+      handleDeleteClose();
+      getUsersList("","","","", 10, 1);
+      toast.success("The user has been deleted successfully")
+      console.log(response);
     }
     catch(error){
       console.log(error);
@@ -58,7 +87,26 @@ export default function UsersList() {
   }, []);
 
   return (
+    
     <div>
+
+
+      <Modal show={showDelete} onHide={handleDeleteClose}>
+        <Modal.Header closeButton>
+          <h3>Delete User</h3>
+        </Modal.Header>
+        <Modal.Body>
+          <DeleteData deleteItem={'User'}/>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={onDeleteSubmit}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+
+
      <Header title={'Users List'} description={'You can now add your items that any user can order it from the Application and you can edit'} imgUrl={headerImg}/>
      <div className="container-fluid p-4">
         <div className="row">
@@ -123,8 +171,7 @@ export default function UsersList() {
               <td>{item.group.name}</td>
               <td>{item.country}</td>
               <td>
-                <i className="fa fa-edit text-warning mx-2" aria-hidden="true"></i>
-                <i className="fa fa-trash text-danger" aria-hidden="true"></i>
+                <i onClick={()=>handleDeleteShow(item.id)} className="fa fa-trash text-danger" aria-hidden="true"></i>
               </td>
               </tr>):(
                 <tr>
