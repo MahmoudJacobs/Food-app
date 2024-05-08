@@ -25,7 +25,6 @@ export default function RecipeData() {
           let response = await axios.get('https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=10&pageNumber=1',
           {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`}}
           );
-          console.log(response.data.data);
           setCategoriesList(response.data.data);
         }
         catch(error){
@@ -66,7 +65,7 @@ export default function RecipeData() {
           let response = await axios.post('https://upskilling-egypt.com:3006/api/v1/Recipe',recipeFormData,
           {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`}});
           toast.success('Recipe Saved');
-          navigate('/dashboard/recipes')
+          navigate('/dashboard/recipes');
         }
         
         catch(error){

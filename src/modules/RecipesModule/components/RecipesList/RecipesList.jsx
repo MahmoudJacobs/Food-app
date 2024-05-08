@@ -37,7 +37,6 @@ export default function RecipesList() {
       let response = await axios.get('https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=10&pageNumber=1',
       {headers:{Authorization:`Bearer ${localStorage.getItem("token")}`}}
       );
-      console.log(response.data.data);
       setCategoriesList(response.data.data);
     }
     catch(error){
@@ -203,8 +202,6 @@ export default function RecipesList() {
       toast.error(error.response.data.message);
     }
   }
-
-
 
   const goToRecipeData = () => {
     navigate('/dashboard/recipeData')
