@@ -3,7 +3,7 @@ import React from 'react';
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import { useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { createHashRouter, Navigate } from 'react-router-dom';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AuthLayout from './modules/SharedModule/components/AuthLayout/AuthLayout';
 import Notfound from './modules/SharedModule/components/Notfound/Notfound';
