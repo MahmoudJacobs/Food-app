@@ -24,31 +24,14 @@ import ProtectedRoute from "./modules/SharedModule/components/ProtectedRoute/Pro
 import RecipeData from "./modules/RecipesModule/components/RecipeData/RecipeData";
 import VerifyAccount from "./modules/AuthenticationModule/components/verifyAccount/VerifyAccount"
 import RecipeEdit from "./modules/RecipesModule/components/RecipeEdit/RecipeEdit";
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 function App() {
- let [loginData,setLoginData] = useState(null);
- const [loading, setLoading] = useState(true);
-
- let saveLoginData = () => {
-   const encodedToken = localStorage.getItem('token');
-   if (encodedToken) {
-   let decodedToken = jwtDecode(encodedToken);
-   localStorage.setItem("userData", JSON.stringify(decodedToken));
-   console.log(decodedToken);
-   setLoginData(decodedToken);
- }
- setLoading(false)
-}
- useEffect(() => {
-    if(localStorage.getItem('token')) {
-      saveLoginData()
-    } else {
-      setLoading(false);
-    }
-  }, []);
-
  
- let routes = createBrowserRouter([
+ let {loginData, saveLoginData, loading} = useContext(AuthContext)
+ 
+ let routes = createHashRouter([
   {
     path:'dashboard',
     element:(<ProtectedRoute loginData={loginData}>
