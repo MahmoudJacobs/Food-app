@@ -172,7 +172,7 @@ export default function Register() {
                   />
                   <span className="input-group-text" id="basic-addon2">
                     <i
-                      className={showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'} 
+                      className={showPassword ? 'fa fa-eye-slash text-success' : 'fa fa-eye text-success'} 
                       onClick={togglePasswordVisibility}
                       style={{ cursor: 'pointer' }}
                     ></i>
