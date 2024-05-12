@@ -66,6 +66,7 @@ export default function RecipesList() {
   
   const handleViewShow = (item) => {
     setSelectedRecipe(item);
+    console.log(item)
     setSelectedRecipeImage(staticUrl + item.imagePath);
     setSelectedRecipeDesc(item.description);
     setRecipeId(item.id);
@@ -99,7 +100,7 @@ export default function RecipesList() {
   const [showDelete,setShowDelete] = useState(false);
   const handleDeleteClose = () => setShowDelete(false);
   const handleDeleteShow = (item) => {
-    setRecipeId(item)
+    setRecipeId(item.id)
     setShowDelete(true);
   }
 
@@ -107,7 +108,10 @@ export default function RecipesList() {
   const [showUpdate,setShowUpdate] =useState(false);
   const handleUpdateClose = () => setShowUpdate(false);
   const handleUpdateShow = (item) => {
-    setRecipeId(item)
+    setSelectedRecipe(item);
+    console.log(item)
+    setSelectedRecipeImage(staticUrl + item.imagePath);
+    setRecipeId(item.id);
     setShowUpdate(true);
   } 
 
@@ -240,8 +244,8 @@ export default function RecipesList() {
         <Modal.Body>
         <form onSubmit={handleSubmit(onUpdateSubmit)} className='my-4'>
               <div className='row justify-content-center'>
-                <div className='col-md-6 text-center'>
-                <img className='' src={headerImg} alt="no img"/> 
+                <div className='col-md-8 text-center'>
+                <img className='w-100 rounded mb-md-3' src={SelectedRecipeImage} alt="no img"/> 
                 </div>
               </div>
               <div className="input-group mb-3">
@@ -418,8 +422,8 @@ export default function RecipesList() {
               <td>{item.tag.name}</td>
               {userData?.userGroup=='SuperAdmin'?(
               <td>
-                <i onClick={()=>handleUpdateShow(item.id)} className="fa fa-edit text-warning mx-2" aria-hidden="true"></i>
-                <i onClick={()=>handleDeleteShow(item.id)} className="fa fa-trash text-danger" aria-hidden="true"></i>
+                <i onClick={()=>handleUpdateShow(item)} className="fa fa-edit text-warning mx-2" aria-hidden="true"></i>
+                <i onClick={()=>handleDeleteShow(item)} className="fa fa-trash text-danger" aria-hidden="true"></i>
               </td>
               ) : (
               ""
