@@ -443,21 +443,21 @@ export default function RecipesList() {
         <nav className='d-flex justify-content-center' aria-label="Page navigation">
         <ul className="pagination">
           <li className="page-item">
-            <a className="page-link" href="#" aria-label="Previous">
+            <a className="page-link" aria-label="Previous">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
 
           {ArrayOfPages.map((pageNo)=> (
             <li className="page-item" onClick={()=>getRecipesList(nameValue,tagValue,catValue,5,pageNo)}>
-              <a className="page-link" href="#">{pageNo}</a>
+              <a className="page-link">{pageNo}</a>
             </li>
           ))}
 
           
           
           <li className="page-item">
-            <a className="page-link" href="#" aria-label="Next">
+            <a className="page-link" aria-label="Next">
               <span aria-hidden="true">&raquo;</span>
             </a>
           </li>
