@@ -44,7 +44,7 @@ export default function ForgetPass() {
               <form onSubmit={handleSubmit(onSubmit)} className='my-4'>
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    <i className='fa fa-envelope'></i>
+                    <i className='fa fa-envelope text-success'></i>
                   </span>
                   <input
                     type="text"

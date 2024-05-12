@@ -52,7 +52,7 @@ export default function Login({saveLoginData}) {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    <i className='fa fa-envelope'></i>
+                    <i className='fa fa-envelope text-success'></i>
                   </span>
                   <input
                     type="text"
@@ -70,7 +70,7 @@ export default function Login({saveLoginData}) {
                 {errors.email && <p className='alert alert-danger'>{errors.email.message}</p>}
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    <i className='fa fa-key'></i>
+                    <i className='fa fa-key text-success'></i>
                   </span>
                   <input
                     type={showPassword ? "text" : "password"}
@@ -82,7 +82,7 @@ export default function Login({saveLoginData}) {
                   />
                   <span className="input-group-text" id="basic-addon2">
                     <i
-                      className={showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'} 
+                      className={showPassword ? 'fa fa-eye-slash text-success' : 'fa fa-eye text-success'} 
                       onClick={togglePasswordVisibility}
                       style={{ cursor: 'pointer' }}
                     ></i>

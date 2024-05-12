@@ -60,7 +60,7 @@ export default function ResetPass() {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    <i className='fa fa-envelope'></i>
+                    <i className='fa fa-envelope text-success'></i>
                   </span>
                   <input
                     type="text"
@@ -78,7 +78,7 @@ export default function ResetPass() {
                 {errors.email && <p className='alert alert-danger'>{errors.email.message}</p>}
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    <i className='fa fa-lock'></i>
+                    <i className='fa fa-lock text-success'></i>
                   </span>
                   <input
                     type={showPassword ? "text" : "password"}
@@ -101,7 +101,7 @@ export default function ResetPass() {
                 {errors.password && <p className='alert alert-danger'>{errors.password.message}</p>}
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    <i className='fa fa-lock'></i>
+                    <i className='fa fa-lock text-success'></i>
                   </span>
                   <input
                     type={showConfirmPassword ? "text" : "password"}
@@ -113,13 +113,13 @@ export default function ResetPass() {
                     })}
                   />
                   <span onClick={toggleConfirmPasswordVisibility} style={{ cursor: 'pointer' }} className="input-group-text" id="basic-addon2">
-                    <i className={showConfirmPassword ? 'fa fa-eye' : 'fa fa-eye-slash'}></i>
+                    <i className={showConfirmPassword ? 'fa fa-eye text-success' : 'fa fa-eye-slash text-success'}></i>
                   </span>
                 </div>
                 {errors.confirmPassword && <p className='alert alert-danger'>{errors.confirmPassword.message}</p>}
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    <i className='fa fa-lock'></i>
+                    <i className='fa fa-lock text-success'></i>
                   </span>
                   <input
                     type="text"

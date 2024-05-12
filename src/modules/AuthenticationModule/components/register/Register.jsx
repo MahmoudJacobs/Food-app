@@ -77,7 +77,7 @@ export default function Register() {
                   <div className="col-md-6">
                   <div className="input-group mb-2">
                   <span className="input-group-text" id="basic-addon1">
-                    <i className='fa fa-user'></i>
+                    <i className='fa fa-user text-success'></i>
                   </span>
                   <input
                     type="text"
@@ -97,7 +97,7 @@ export default function Register() {
                   <div className="col-md-6">
                     <div className="input-group mb-2">
                     <span className="input-group-text" id="basic-addon1">
-                      <i className='fa fa-envelope'></i>
+                      <i className='fa fa-envelope text-success'></i>
                     </span>
                     <input
                       type="text"
@@ -120,7 +120,7 @@ export default function Register() {
                   <div className="col-md-6">
                   <div className="input-group mb-2">
                   <span className="input-group-text" id="basic-addon1">
-                    <i className='fa fa-globe'></i>
+                    <i className='fa fa-globe text-success'></i>
                   </span>
                   <input
                     type="text"
@@ -137,7 +137,7 @@ export default function Register() {
                   <div className="col-md-6">
                     <div className="input-group mb-2">
                     <span className="input-group-text" id="basic-addon1">
-                      <i className='fa fa-mobile'></i>
+                      <i className='fa fa-mobile text-success'></i>
                     </span>
                     <input
                       type="text"
@@ -156,7 +156,7 @@ export default function Register() {
                   <div className="col-md-6">
                   <div className="input-group mb-2">
                   <span className="input-group-text" id="basic-addon1">
-                    <i className='fa fa-lock'></i>
+                    <i className='fa fa-lock text-success'></i>
                   </span>
                   <input
                     type={showPassword ? "password" : "text"}
@@ -183,7 +183,7 @@ export default function Register() {
                   <div className="col-md-6">
                     <div className="input-group mb-2">
                     <span className="input-group-text" id="basic-addon1">
-                      <i className='fa fa-lock'></i>
+                      <i className='fa fa-lock text-success'></i>
                     </span>
                     <input
                       type={showConfirmPassword ? "text" : "password"}
@@ -196,7 +196,7 @@ export default function Register() {
                     />
                     <span className="input-group-text" id="basic-addon2">
                     <i
-                      className={showConfirmPassword ? 'fa fa-eye-slash' : 'fa fa-eye'} 
+                      className={showConfirmPassword ? 'fa fa-eye-slash text-success' : 'fa fa-eye text-success'} 
                       onClick={toggleConfirmPasswordVisibility}
                       style={{ cursor: 'pointer' }}
                     ></i>

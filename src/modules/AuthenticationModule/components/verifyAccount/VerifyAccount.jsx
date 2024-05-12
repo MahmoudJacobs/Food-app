@@ -45,7 +45,7 @@ export default function VerifyAccount() {
               <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    <i className='fa fa-envelope'></i>
+                    <i className='fa fa-envelope text-success'></i>
                   </span>
                   <input
                     type="text"
@@ -59,7 +59,7 @@ export default function VerifyAccount() {
                 {errors.email && <p className='alert alert-danger'>{errors.email.message}</p>}
                 <div className="input-group mb-3">
                   <span className="input-group-text" id="basic-addon1">
-                    <i className='fa fa-key'></i>
+                    <i className='fa fa-key text-success'></i>
                   </span>
                   <input
                     className="form-control"
