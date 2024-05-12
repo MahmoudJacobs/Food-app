@@ -31,7 +31,7 @@ export default function RecipesList() {
   const [SelectedRecipe, setSelectedRecipe] = useState(null);
   const baseURL = 'https://upskilling-egypt.com:3006/api/v1'
   const staticUrl = 'https://upskilling-egypt.com:3006/'
-
+  
   const getCategoriesList = async()=> {
     try{
       let response = await axios.get('https://upskilling-egypt.com:3006/api/v1/Category/?pageSize=10&pageNumber=1',

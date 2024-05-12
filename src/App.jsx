@@ -1,5 +1,5 @@
 import "./App.css";
-import React from 'react';
+import React, { useContext } from 'react';
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
 import { useState } from 'react';
@@ -24,12 +24,22 @@ import ProtectedRoute from "./modules/SharedModule/components/ProtectedRoute/Pro
 import RecipeData from "./modules/RecipesModule/components/RecipeData/RecipeData";
 import VerifyAccount from "./modules/AuthenticationModule/components/verifyAccount/VerifyAccount"
 import RecipeEdit from "./modules/RecipesModule/components/RecipeEdit/RecipeEdit";
-import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
+
 
 function App() {
  
- let {loginData, saveLoginData, loading} = useContext(AuthContext)
+  
+  let {loginData, saveLoginData, loading} = useContext(AuthContext)
+
+  useEffect(() => {
+     if(localStorage.getItem('token')) {
+       saveLoginData()
+     } else {
+       setLoading(false);
+     }
+   }, []);
+ 
  
  let routes = createHashRouter([
   {
