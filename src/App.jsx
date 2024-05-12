@@ -29,9 +29,19 @@ import { AuthContext } from "./context/AuthContext";
 
 function App() {
  
-  
-  let {loginData, saveLoginData, loading} = useContext(AuthContext)
-
+  let [loginData,setLoginData] = useState(null);
+  const [loading, setLoading] = useState(true);
+ 
+  let saveLoginData = () => {
+    const encodedToken = localStorage.getItem('token');
+    if (encodedToken) {
+    let decodedToken = jwtDecode(encodedToken);
+    localStorage.setItem("userData", JSON.stringify(decodedToken));
+    console.log(decodedToken);
+    setLoginData(decodedToken);
+  }
+  setLoading(false)
+ }
   useEffect(() => {
      if(localStorage.getItem('token')) {
        saveLoginData()
@@ -40,8 +50,7 @@ function App() {
      }
    }, []);
  
- 
- let routes = createHashRouter([
+ let routes = createBrowserRouter([
   {
     path:'dashboard',
     element:(<ProtectedRoute loginData={loginData}>
