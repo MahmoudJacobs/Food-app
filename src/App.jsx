@@ -50,7 +50,7 @@ function App() {
      }
    }, []);
  
- let routes = createBrowserRouter([
+ let routes = createHashRouter([
   {
     path:'dashboard',
     element:(<ProtectedRoute loginData={loginData}>
